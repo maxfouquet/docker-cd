@@ -1,6 +1,18 @@
 version: "3.4"
 
 services:
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    networks:
+      - cicd
+    ports:
+      - '8000:8000'
+      - '9001:9000'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
   gitlab:
     image: gitlab/gitlab-ce:latest
     container_name: gitlab
@@ -21,6 +33,7 @@ networks:
       name: cicd
 
 volumes:
+  portainer_data:
   gitlab_config:
   gitlab_logs:
   gitlab_data:
